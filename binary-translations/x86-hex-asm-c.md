@@ -82,7 +82,9 @@ A list of common x86 instructions
 | `0F A2` | `cpuid`    | —              | Query CPU info.          |
 | `0F 31` | `rdtsc`    | —              | Read time-stamp counter. |
 
+---
+
 Sources: 
-Intel® 64 and IA-32 Architectures Software Developer’s Manual, Vol. 2 (Instruction Set Reference)
-_Reverse Engineering for Beginners_ — Dennis Yurichev (free PDF)
+Intel® 64 and IA-32 Architectures Software Developer’s Manual, Vol. 2 (Instruction Set Reference)  
+_Reverse Engineering for Beginners_ — Dennis Yurichev (free PDF)  
 Personal RE practice and notes (SkyWolf-re)
