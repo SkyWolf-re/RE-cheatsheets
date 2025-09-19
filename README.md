@@ -10,12 +10,12 @@ This repo is still small, but may grow into a learning hub. Contributions are we
 ### Included:
 
 -Markdown notes, timelines, indicators (hashes, URLs, mutexes, registry keys)
--Project files, scripts, small utilities
--YARA/CAPA rules, opcode pattern DBs, PE/ELF field maps, calling convention refs
--Final reports (PDF/MD), diagrams (CFGs, unpacking chains, control flow)
+-Project files, scripts, small utilities  
+-YARA/CAPA rules, opcode pattern DBs, PE/ELF field maps, calling convention refs  
+-Final reports (PDF/MD), diagrams (CFGs, unpacking chains, control flow)  
 
 ### Excluded or Restricted
 
--Malware binaries: do not commit live samples. Store off-repo (encrypted) and reference only by hash.
--Proprietary code/data: only public, licensed, or your own material.
--Sensitive IOCs that could harm users: redact where necessary.
+-Malware binaries: do not commit live samples. Store off-repo (encrypted) and reference only by hash  
+-Proprietary code/data: only public, licensed, or your own material  
+-Sensitive IOCs that could harm users: redact where necessary  
