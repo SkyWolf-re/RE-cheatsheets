@@ -19,7 +19,7 @@ rule TPL_String_Signature_Demo : tpl demo string
   strings:
     //Deliberately unique marker so you can create a benign test file
     //Note: remove 'fullword' if you want matches inside larger tokens
-    $marker = "SkyWolf::YARA demo artifact" ascii wide
+    $marker = "SkyWolf::YARA demo artifact" ascii wide fullword
 
   condition:
     // -------- Choose ONE guard (uncomment) --------
