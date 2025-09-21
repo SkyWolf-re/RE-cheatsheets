@@ -14,7 +14,6 @@ YARA lets you codify analyst knowledge as small, testable rules that match on by
 
 ## Notes
 - Each file contains a single rule
-- Use tags (e.g., , , , ) to filter
 - These are templates—tune strings/thresholds for real targets
 
 ## Learn more
