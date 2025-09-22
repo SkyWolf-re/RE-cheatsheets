@@ -1,4 +1,4 @@
-// TPL_File_Size_Guard.yar
+// TPL_File_Size_Guard_Demo.yar
 //
 // Author: SkyWolf
 // Date: 2025-09-21
