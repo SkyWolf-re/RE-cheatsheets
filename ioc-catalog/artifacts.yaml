@@ -89,6 +89,97 @@
 
 # BINARY DNA/TOOLCHAIN 
 
+- id: archetype.binary.pe_clang_llvm_toolchain.v1
+  name: Clang/LLVM toolchain markers (PE)
+  visibility: ["disk"]
+  stability: 5
+  confidence: high
+  binary_dna:
+    toolchain: { lang: "c/c++", compiler: "clang", compiler_version: "<fill>", linker: "lld", linker_version: "<fill>" }
+    imphash: "<fill>"
+    import_set_sha256: "sha256:<sorted-imports>"
+    section_fingerprint: "sha256:<canonicalized-sections>"   # names+flags+entropy buckets
+    richhash: "<optional-pe-rich-hash>"                      # present if MASM/MSVC libs mixed in
+    pdb_paths_norm: ["users/*/proj/*/*.pdb"]                 # if PDB present
+  notes: "Clang+LLD on Windows leaves LLVM/LLD version strings and PDBs when built with debug; stable import sets & section schema help cluster variants."
+
+- id: archetype.binary.elf_clang_llvm_toolchain.v1
+  name: Clang/LLVM toolchain markers (ELF)
+  visibility: ["disk"]
+  stability: 5
+  confidence: high
+  binary_dna:
+    toolchain: { lang: "c/c++", compiler: "clang", compiler_version: "<fill>", linker: "lld|ld", linker_version: "<fill>" }
+    build_id: "<elf-build-id-if-present>"
+    section_fingerprint: "sha256:<canonicalized-sections>"
+    dwarf_presence: "<yes/no>"                                # DWARF present?
+  notes: "Look for LLVM/Clang strings in .comment/.note and DWARF producer; BUILD-ID + section schema are durable cluster signals."
+
+- id: archetype.binary.pe_gcc_mingw_toolchain.v1
+  name: GCC (MinGW) toolchain markers (PE)
+  visibility: ["disk"]
+  stability: 5
+  confidence: high
+  binary_dna:
+    toolchain: { lang: "c/c++", compiler: "gcc (mingw)", compiler_version: "<fill>", runtime: "libgcc/libstdc++", linker: "ld|lld", linker_version: "<fill>" }
+    imphash: "<fill>"
+    import_set_sha256: "sha256:<sorted-imports>"
+    section_fingerprint: "sha256:<canonicalized-sections>"
+    gcc_comment: "<optional: 'GCC: (GNU) X.Y.Z'>"             # if present in .comment/debug
+  notes: "MinGW builds often carry GCC version notes and libgcc/libstdc++; PE import layout + section schema are strong clustering features."
+
+- id: archetype.binary.elf_gcc_toolchain.v1
+  name: GCC toolchain markers (ELF)
+  visibility: ["disk"]
+  stability: 5
+  confidence: high
+  binary_dna:
+    toolchain: { lang: "c/c++", compiler: "gcc", compiler_version: "<fill>", linker: "ld|gold|lld", linker_version: "<fill>" }
+    build_id: "<elf-build-id-if-present>"
+    section_fingerprint: "sha256:<canonicalized-sections>"
+    dwarf_presence: "<yes/no>"
+  notes: "ELF BUILD-ID + GCC producer strings in DWARF/.comment are common; combine with section fingerprint for robustness."
+
+- id: archetype.binary.pe_msvc_toolchain.v1
+  name: MSVC toolchain markers (PE)
+  visibility: ["disk"]
+  stability: 5
+  confidence: high
+  binary_dna:
+    toolchain: { lang: "c/c++", compiler: "msvc", compiler_version: "<fill>", linker: "link.exe", linker_version: "<fill>" }
+    richhash: "<pe-rich-hash>"                                 # strong MSVC signal
+    imphash: "<fill>"
+    import_set_sha256: "sha256:<sorted-imports>"
+    section_fingerprint: "sha256:<canonicalized-sections>"
+    pdb_paths_norm: ["users/*/proj/*/*.pdb"]
+  notes: "Rich header + PDB path patterns + import set are excellent for clustering MSVC-built families."
+
+- id: archetype.binary.pe_zig_llvm_toolchain.v1
+  name: Zig toolchain markers (PE via LLVM)
+  visibility: ["disk","memory"]
+  stability: 4
+  confidence: medium
+  binary_dna:
+    toolchain: { lang: "zig", zig_version: "<fill>", backend: "LLVM", lld_version: "<fill>" }
+    imphash: "<fill>"
+    import_set_sha256: "sha256:<sorted-imports>"
+    section_fingerprint: "sha256:<canonicalized-sections>"
+    pdb_paths_norm: ["users/*/proj/*/*.pdb"]                  # if built with PDBs
+  notes: "Zig emits through LLVM/LLD; version strings often appear in debug metadata. Use section/import fingerprints + any embedded Zig version for clustering."
+
+- id: archetype.binary.elf_zig_llvm_toolchain.v1
+  name: Zig toolchain markers (ELF via LLVM)
+  visibility: ["disk","memory"]
+  stability: 4
+  confidence: medium
+  binary_dna:
+    toolchain: { lang: "zig", zig_version: "<fill>", backend: "LLVM", linker: "lld|ld", linker_version: "<fill>" }
+    build_id: "<elf-build-id-if-present>"
+    section_fingerprint: "sha256:<canonicalized-sections>"
+    dwarf_presence: "<yes/no>"
+  notes: "On ELF, check DWARF producer for Zig/LLVM, BUILD-ID for clustering, and keep section schema hashed; pair with behavior/config artifacts for high precision."
+
+
 - id: archetype.binary.pe_go_toolchain.v1
   name: Go toolchain markers (PE/ELF)
   visibility: ["disk"]
