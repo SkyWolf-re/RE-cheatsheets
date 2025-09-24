@@ -1,0 +1,4 @@
+yara/samples/**
+
+*.swp
+*.swo
